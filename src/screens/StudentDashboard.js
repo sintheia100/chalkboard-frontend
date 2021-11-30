@@ -6,7 +6,7 @@ import { GlobalContext } from "../context/GlobalContext";
 import Dashboard from "./Dashboard";
 const StudentDashboard = () => {
   const params = useParams();
-  const { mobile } = useContext(GlobalContext);
+  const { mobile, instructor } = useContext(GlobalContext);
   const [translate, setTranslate] = useState("-50rem");
   const [width, setWidth] = useState("0rem");
   const location = useLocation();
@@ -26,7 +26,7 @@ const StudentDashboard = () => {
     const user = JSON.parse(localStorage.getItem("user"));
     setUser(user);
   }, []);
-  return (
+  return instructor ? null : (
     <div style={{ display: "flex" }}>
       <nav
         className='sidebar'

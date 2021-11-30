@@ -5,43 +5,53 @@ import Loader from "react-loader-spinner";
 
 const Signup = () => {
   const navigate = useHistory();
+  //const user = JSON.parse(localStorage.getItem("user"));
   const [fName, setFName] = useState("");
   const [lName, setLName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [cPassword, setCPassword] = useState("");
   const [instructorBox, setInstructorBox] = useState(false);
-  const { isLoggedIn, setIsLoggedIn } = useContext(GlobalContext);
+  const { isLoggedIn, setIsLoggedIn, setUser, setInstructor, user } =
+    useContext(GlobalContext);
   const [loading, setLoading] = useState(false);
   const [disable, setDisable] = useState(false);
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setDisable(true);
     setLoading(true);
-    await fetch("https://chalkboard-api.herokuapp.com/users/add_user", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
+    await fetch(
+      instructorBox
+        ? "https://chalkboard-api.herokuapp.com/instructors/add"
+        : "https://chalkboard-api.herokuapp.com/users/add_user",
+      {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
 
-      body: JSON.stringify({
-        fName: fName,
-        lName: lName,
-        email: email,
-        password: password,
-      }),
-      mode: "cors",
-    })
+        body: JSON.stringify({
+          fName: fName,
+          lName: lName,
+          email: email,
+          password: password,
+        }),
+        mode: "cors",
+      }
+    )
       .then((message) => {
         return message.json();
       })
       .then((data) => {
         if (data.status === 200) {
-          localStorage.setItem("user", JSON.stringify(data.response));
-          const user = JSON.parse(localStorage.getItem("user"));
+          setUser(data.response);
           setIsLoggedIn(true);
-          navigate.push(`/${user._id}/dashboard`);
+          instructorBox && setInstructor(true);
+          instructorBox &&
+            navigate.push(`/${data.response._id}/instructor/dashboard`);
+          instructorBox === false &&
+            navigate.push(`/${data.response._id}/dashboard`);
         }
       });
   };

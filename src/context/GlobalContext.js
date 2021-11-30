@@ -7,7 +7,6 @@ const GlobalContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useLocalStorage("isLoggedIn", false);
   const [instructor, setInstructor] = useLocalStorage("instructor", false);
   const [user, setUser] = useLocalStorage("user", {});
-  console.log(isLoggedIn);
   const mobile = useMediaQuery({
     maxWidth: "600px",
   });

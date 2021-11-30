@@ -59,7 +59,9 @@ const App = () => {
         </Route>
         <Route path='/browse' exact component={Browse} />
         <Route path='/browse/:id' component={CoursePage} />
-        <Route path='/:user/dashboard' exact component={StudentDashboard} />
+        <Route path='/:user/dashboard' exact>
+          {isLoggedIn ? <StudentDashboard /> : <Redirect to='/login' />}
+        </Route>
         <Route
           path='/:user/dashboard/assignments'
           exact
@@ -69,10 +71,9 @@ const App = () => {
           path='/:user/assignments/:assignmentId'
           component={CourseAssignment}
         />
-        <Route
-          path='/:user/instructor/dashboard'
-          component={TeacherDashboard}
-        />
+        <Route path='/:user/instructor/dashboard'>
+          {isLoggedIn ? <TeacherDashboard /> : <Redirect to='/login' />}
+        </Route>
       </Switch>
     </Router>
   );

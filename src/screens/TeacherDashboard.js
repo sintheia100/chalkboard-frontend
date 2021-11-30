@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Course from "../components/Course";
-import { users } from "../data/users";
-
+import { GlobalContext } from "../context/GlobalContext";
 const TeacherDashboard = () => {
-  const user = JSON.parse(localStorage.getItem("user"));
+  const { user } = React.useContext(GlobalContext);
   return (
     <div className='ins-dash-container'>
       <div

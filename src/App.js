@@ -18,7 +18,8 @@ import AssignmentsPage from "./screens/AssignmentsPage";
 import CourseAssignment from "./screens/CourseAssignment";
 import TeacherDashboard from "./screens/TeacherDashboard";
 import { GlobalContext } from "./context/GlobalContext";
-import Dashboard from "./screens/Dashboard";
+import AdminView from "./screens/AdminView";
+
 const App = () => {
   const { isLoggedIn } = React.useContext(GlobalContext);
   const user = JSON.parse(localStorage.getItem("user"));
@@ -28,6 +29,7 @@ const App = () => {
       {/* <hr className='header-divider' /> */}
       <Switch>
         <Route path='/' exact component={HomePage} />
+        <Route path='/admin' exact component={AdminView} />
         <Route path='/login' exact>
           {isLoggedIn ? (
             <Redirect to={`${user !== null && user._id}/dashboard`} />

@@ -28,7 +28,7 @@ const HomePage = () => {
             }}>
             <div className='hero-content'>
               <h1 style={{ margin: 0, marginBottom: "2rem", color: "#fff" }}>
-                Heloo World
+                Hello World
               </h1>
               <p style={{ padding: 0, margin: 0 }}>
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Optio,
